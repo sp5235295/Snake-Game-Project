@@ -8,7 +8,7 @@ body{
   justify-content: center;
   align-items: center;
   font-family: 'Arial', sans-serif;
-  position: relative; /* for absolute positioning arrows */
+  position: relative;
 }
 
 h1{
@@ -19,7 +19,6 @@ h1{
   text-align: center;
 }
 
-/* Animated underline glow */
 h1::after{
   content: "";
   position: absolute;
@@ -46,30 +45,43 @@ h1::after{
 .controls{margin-top:10px;display:flex;gap:5px;}
 button{padding:5px 10px;cursor:pointer;}
 
-/* Mobile arrow buttons */
-.mobile-controls{
+/* Mobile D-pad styling */
+.mobile-dpad {
   position: absolute;
-  left: calc(50% - 240px - 70px); /* canvas width 440px, gap 70px */
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 10;
+  left: 20px; /* distance from left edge */
+  bottom: 20px; /* distance from bottom */
+  width: 150px;
+  height: 150px;
+  display: grid;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
+  gap: 5px;
 }
 
-.mobile-controls button{
-  width: 60px;
-  height: 60px;
-  font-size: 1.8em;
-  border-radius: 50%;
+.mobile-dpad .arrow {
+  width: 50px;
+  height: 50px;
+  font-size: 1.5em;
+  border-radius: 8px;
   border: none;
   background-color: rgba(0,0,0,0.5);
   color: white;
   cursor: pointer;
   outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  transition: background-color 0.1s;
 }
 
-.mobile-controls button:active{
+.mobile-dpad .arrow:active {
   background-color: rgba(255,255,255,0.3);
 }
+
+/* Position arrows in grid */
+.mobile-dpad .up { grid-column: 2; grid-row: 1; }
+.mobile-dpad .left { grid-column: 1; grid-row: 2; }
+.mobile-dpad .center { grid-column: 2; grid-row: 2; } /* empty space */
+.mobile-dpad .right { grid-column: 3; grid-row: 2; }
+.mobile-dpad .down { grid-column: 2; grid-row: 3; }
