@@ -1,17 +1,19 @@
-body{
+body {
   background: url("bg.jpg"); 
   min-height: 100vh;
-  background-size: 100vw 100vh;
+  background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: 'Arial', sans-serif;
-  position: relative;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-h1{
+h1 {
   font-size: 3em;
   text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
   margin-bottom: 20px;
@@ -19,7 +21,7 @@ h1{
   text-align: center;
 }
 
-h1::after{
+h1::after {
   content: "";
   position: absolute;
   left: 0;
@@ -31,25 +33,37 @@ h1::after{
   animation: glow 2s infinite alternate;
 }
 
-@keyframes glow{
+@keyframes glow {
   0% { box-shadow: 0 0 5px #ff6a00;}
   50% { box-shadow: 0 0 20px #ee0979;}
   100% { box-shadow: 0 0 10px #00ff7f;}
 }
 
+/* Game canvas responsive */
 #game {
   background: linear-gradient(135deg, #100e0e, #141b1d, #22201c);
   border: 2px solid #444;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.6);
+  width: 90vw;         /* canvas screen ke hisaab se adjust hoga */
+  max-width: 500px;    /* laptop pe zyada bada na ho */
+  height: auto;        /* height JS me handle karna better hai */
+  aspect-ratio: 1 / 1; /* hamesha square banane ke liye */
 }
 
-.controls{margin-top:10px;display:flex;gap:5px;}
-button{padding:5px 10px;cursor:pointer;}
+/* Desktop controls */
+.controls {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+}
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
 
 /* Mobile D-pad styling */
 .mobile-dpad {
-  position: absolute;
-  left: 20px; /* distance from left edge */
-  bottom: 20px; /* distance from bottom */
+  margin-top: 20px;
   width: 150px;
   height: 150px;
   display: grid;
@@ -61,10 +75,10 @@ button{padding:5px 10px;cursor:pointer;}
 .mobile-dpad .arrow {
   width: 50px;
   height: 50px;
-  font-size: 1.5em;
-  border-radius: 8px;
+  font-size: 2em;
+  border-radius: 12px;
   border: none;
-  background-color: rgba(0,0,0,0.5);
+  background: linear-gradient(145deg, #333, #111);
   color: white;
   cursor: pointer;
   outline: none;
@@ -72,16 +86,39 @@ button{padding:5px 10px;cursor:pointer;}
   justify-content: center;
   align-items: center;
   user-select: none;
-  transition: background-color 0.1s;
+  transition: background 0.1s, box-shadow 0.1s;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.6);
 }
 
 .mobile-dpad .arrow:active {
-  background-color: rgba(255,255,255,0.3);
+  background: linear-gradient(145deg, #555, #222);
+  box-shadow: inset 2px 2px 6px rgba(0,0,0,0.6);
 }
 
 /* Position arrows in grid */
 .mobile-dpad .up { grid-column: 2; grid-row: 1; }
 .mobile-dpad .left { grid-column: 1; grid-row: 2; }
-.mobile-dpad .center { grid-column: 2; grid-row: 2; } /* empty space */
+.mobile-dpad .center { grid-column: 2; grid-row: 2; }
 .mobile-dpad .right { grid-column: 3; grid-row: 2; }
 .mobile-dpad .down { grid-column: 2; grid-row: 3; }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  #game {
+    width: 95vw;     /* chhoti screen pe almost full width */
+    max-width: none; /* limit hata do */
+  }
+
+  .mobile-dpad {
+    width: 120px;
+    height: 120px;
+    grid-template-columns: 40px 40px 40px;
+    grid-template-rows: 40px 40px 40px;
+  }
+
+  .mobile-dpad .arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+  }
+}
